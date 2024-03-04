@@ -1,13 +1,7 @@
 import './App.css'
 import { Layout } from 'antd'
-const headerStyle = {
-  textAlign: 'center',
-  color: '#fff',
-  height: 60,
-  paddingInline: 48,
-  lineHeight: '64px',
-  backgroundColor: '#4096ff',
-}
+import AppHeader from './components/layout/AppHeader'
+
 const contentStyle = {
   textAlign: 'center',
   minHeight: 'calc(100vh - 60px)',
@@ -25,7 +19,7 @@ const siderStyle = {
 function App() {
   return (
     <Layout>
-      <Layout.Header style={headerStyle}>Header</Layout.Header>
+      <AppHeader />
       <Layout>
         <Layout.Sider width="25%" style={siderStyle}>
           Sider
