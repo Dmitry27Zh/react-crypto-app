@@ -15,6 +15,10 @@ const data = [
   'Los Angeles battles huge wildfires.',
 ]
 
+function percentDifference(a, b) {
+  return 100 * Math.abs((a - b) / ((a + b) / 2))
+}
+
 export default function AppSider() {
   const [isLoading, setIsLoading] = useState(false)
   const [crypto, setCrypto] = useState([])
@@ -26,7 +30,19 @@ export default function AppSider() {
       const { result } = await fetchCrypto()
       const assets = await fetchAssets()
       setCrypto(result)
-      setAssets(assets)
+      setAssets(
+        assets.map((asset) => {
+          const coin = result.find((c) => c.id === asset.id)
+
+          return {
+            ...asset,
+            grow: asset.price < coin.price,
+            growPercent: percentDifference(asset.price, coin.price),
+            totalAmount: asset.amount * coin.price,
+            totalProfit: asset.amount * coin.price - asset.amount * asset.price,
+          }
+        })
+      )
       setIsLoading(false)
     }
     preload()
