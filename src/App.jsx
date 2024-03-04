@@ -1,6 +1,7 @@
 import './App.css'
 import { Layout } from 'antd'
 import AppHeader from './components/layout/AppHeader'
+import AppSider from './components/layout/AppSider'
 
 const contentStyle = {
   textAlign: 'center',
@@ -9,21 +10,13 @@ const contentStyle = {
   color: '#fff',
   backgroundColor: '#001529',
 }
-const siderStyle = {
-  textAlign: 'center',
-  lineHeight: '120px',
-  color: '#fff',
-  backgroundColor: '#1677ff',
-}
 
 function App() {
   return (
     <Layout>
       <AppHeader />
       <Layout>
-        <Layout.Sider width="25%" style={siderStyle}>
-          Sider
-        </Layout.Sider>
+        <AppSider />
         <Layout.Content style={contentStyle}>Content</Layout.Content>
       </Layout>
     </Layout>
