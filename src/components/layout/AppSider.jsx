@@ -2,6 +2,7 @@ import { Layout, Card, Statistic, List, Typography, Spin } from 'antd'
 import { ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons'
 import { useEffect, useState } from 'react'
 import { fetchAssets, fetchCrypto } from '../../api'
+import { percentDifference } from '../../utils'
 
 const siderStyle = {
   padding: '1rem',
@@ -14,10 +15,6 @@ const data = [
   'Man charged over missing wedding girl.',
   'Los Angeles battles huge wildfires.',
 ]
-
-function percentDifference(a, b) {
-  return 100 * Math.abs((a - b) / ((a + b) / 2))
-}
 
 export default function AppSider() {
   const [isLoading, setIsLoading] = useState(false)
