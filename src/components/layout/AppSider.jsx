@@ -63,6 +63,7 @@ export default function AppSider() {
                 {
                   title: 'Asset Amount',
                   value: asset.amount,
+                  isPlain: true,
                 },
                 {
                   title: 'Difference',
@@ -72,7 +73,7 @@ export default function AppSider() {
               renderItem={(item) => (
                 <List.Item>
                   <span>{item.title}</span>
-                  <span>{item.value}</span>
+                  {item.isPlain ? <span>{item.value}</span> : <span>{item.value.toFixed(2)}$</span>}
                 </List.Item>
               )}
             />
