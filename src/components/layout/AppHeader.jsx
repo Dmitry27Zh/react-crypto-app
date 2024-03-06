@@ -1,6 +1,7 @@
-import { Layout, Select, Space, Button } from 'antd'
+import { Layout, Select, Space, Button, Modal } from 'antd'
 import { useCrypto } from '../../context/crypto-context'
 import { useEffect, useState } from 'react'
+import CoinInfoModal from '../CoinInfoModal'
 
 const headerStyle = {
   textAlign: 'center',
@@ -14,6 +15,8 @@ const headerStyle = {
 
 export default function AppHeader() {
   const [select, setSelect] = useState(false)
+  const [modal, setModal] = useState(false)
+  const [coin, setCoin] = useState(null)
   const { crypto } = useCrypto()
   useEffect(() => {
     const keydownHandler = (event) => {
@@ -27,7 +30,10 @@ export default function AppHeader() {
       document.removeEventListener('keydown', keydownHandler)
     }
   }, [])
-  function handleSelect() {}
+  function handleSelect(value) {
+    setModal(true)
+    setCoin(crypto.find((c) => c.id === value))
+  }
 
   return (
     <Layout.Header style={headerStyle}>
@@ -48,6 +54,9 @@ export default function AppHeader() {
         )}
       />
       <Button type="primary">Add asset</Button>
+      <Modal open={modal} footer={false} onCancel={() => setModal(false)}>
+        <CoinInfoModal coin={coin} />
+      </Modal>
     </Layout.Header>
   )
 }
