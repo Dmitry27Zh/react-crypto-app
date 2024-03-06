@@ -1,12 +1,16 @@
-import { createContext, useState, useEffect } from 'react'
+import { createContext, useState, useEffect, useContext } from 'react'
 import { fetchAssets, fetchCrypto } from '../api'
 import { percentDifference } from '../utils'
 
-export const CryptoContext = createContext({
+const CryptoContext = createContext({
   assets: [],
   crypto: [],
   isLoading: false,
 })
+
+export function useCrypto() {
+  return useContext(CryptoContext)
+}
 
 export function CryptoContextProvider({ children }) {
   const [isLoading, setIsLoading] = useState(false)
