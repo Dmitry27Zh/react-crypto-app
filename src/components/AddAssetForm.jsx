@@ -2,6 +2,16 @@ import { useState } from 'react'
 import { Select, Space, Typography, Flex, Divider, Form, InputNumber, Button, DatePicker } from 'antd'
 import { useCrypto } from '../context/crypto-context'
 
+const validateMessages = {
+  required: '${label} is required!',
+  types: {
+    number: '${label} is not valid number',
+  },
+  number: {
+    range: '${label} must be between ${min} and ${max}',
+  },
+}
+
 export default function AddAssetForm() {
   const { crypto } = useCrypto()
   const [coin, setCoin] = useState(null)
@@ -43,6 +53,7 @@ export default function AddAssetForm() {
         }}
         initialValues={{}}
         onFinish={onFinish}
+        validateMessages={validateMessages}
       >
         <Flex align="center">
           <img src={coin.icon} alt={coin.name} style={{ width: 40, marginRight: 10 }} />
@@ -60,7 +71,6 @@ export default function AddAssetForm() {
               required: true,
               type: 'number',
               min: 0,
-              message: 'Please input your username!',
             },
           ]}
         >
