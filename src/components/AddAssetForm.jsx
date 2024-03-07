@@ -40,8 +40,15 @@ export default function AddAssetForm() {
       console.log(values)
     }
     const handleAmountChange = (value) => {
+      const price = form.getFieldValue('price')
       form.setFieldsValue({
-        total: +(value * coin.price).toFixed(2),
+        total: +(value * price).toFixed(2),
+      })
+    }
+    const handlePriceChange = (value) => {
+      const amount = form.getFieldValue('amount')
+      form.setFieldsValue({
+        total: +(amount * value).toFixed(2),
       })
     }
 
@@ -87,7 +94,7 @@ export default function AddAssetForm() {
         </Form.Item>
 
         <Form.Item label="Price" name="price">
-          <InputNumber disabled style={{ width: '100%' }} />
+          <InputNumber onChange={handlePriceChange} style={{ width: '100%' }} />
         </Form.Item>
 
         <Form.Item label="Date & Time" name="date">
