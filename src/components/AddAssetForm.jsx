@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Select, Space, Typography, Flex, Divider, Form, InputNumber, Button, DatePicker } from 'antd'
+import { Select, Space, Typography, Flex, Divider, Form, InputNumber, Button, DatePicker, Result } from 'antd'
 import { useCrypto } from '../context/crypto-context'
 
 const validateMessages = {
@@ -12,12 +12,26 @@ const validateMessages = {
   },
 }
 
-export default function AddAssetForm() {
+export default function AddAssetForm({ onClose }) {
   const { crypto } = useCrypto()
   const [coin, setCoin] = useState(null)
   const [form] = Form.useForm()
+  const [submitted, setSubmitted] = useState(false)
 
-  if (!coin) {
+  if (submitted) {
+    return (
+      <Result
+        status="success"
+        title="New Asset Added"
+        subTitle={`Added ${42} of ${coin.name} by price ${24}`}
+        extra={[
+          <Button type="primary" key="console" onClick={onClose}>
+            Close
+          </Button>,
+        ]}
+      />
+    )
+  } else if (!coin) {
     return (
       <Select
         style={{ width: '100%' }}
@@ -37,7 +51,7 @@ export default function AddAssetForm() {
     )
   } else {
     const onFinish = (values) => {
-      console.log(values)
+      setSubmitted(true)
     }
     const handleAmountChange = (value) => {
       const price = form.getFieldValue('price')
