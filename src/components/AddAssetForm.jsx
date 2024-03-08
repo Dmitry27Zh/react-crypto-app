@@ -14,7 +14,7 @@ const validateMessages = {
 }
 
 export default function AddAssetForm({ onClose }) {
-  const { crypto } = useCrypto()
+  const { crypto, addAsset } = useCrypto()
   const [coin, setCoin] = useState(null)
   const [form] = Form.useForm()
   const [submitted, setSubmitted] = useState(false)
@@ -58,9 +58,10 @@ export default function AddAssetForm({ onClose }) {
         id: coin.id,
         amount: values.amount,
         price: values.price,
-        value: values.date.$d ?? new Date(),
+        value: values.date?.$d ?? new Date(),
       }
       assetRef.current = newAsset
+      addAsset(newAsset)
     }
     const handleAmountChange = (value) => {
       const price = form.getFieldValue('price')
